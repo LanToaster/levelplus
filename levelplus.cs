@@ -12,14 +12,11 @@ namespace levelplus {
 
     public class levelplus : Mod {
         public const string modID = "levelplus";
-        
-        private byte playernumber;
 
         public levelplus() { Instance = this; }
 
         public static levelplus Instance { get; set; }
-        
-        
+
         public override void HandlePacket(BinaryReader reader, int whoAmI) {
             byte msgType = reader.ReadByte();
             switch ((PacketType)msgType) {
