@@ -12,6 +12,7 @@ namespace levelplus {
 
     public class levelplus : Mod {
         public const string modID = "levelplus";
+        private byte playernumber;
 
         public levelplus() { Instance = this; }
 
