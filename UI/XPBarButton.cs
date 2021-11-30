@@ -66,7 +66,7 @@ namespace levelplus.UI {
             
                 averageLevel /= numPlayers;
                 
-                Main.instance.MouseText("Level: " + (modPlayer.GetLevel() + 1) + "\n   " + modPlayer.GetUnspentPoints() + " unspent points\n" + numPlayers + " Players, Average Level: " + averageLevel);
+                Main.instance.MouseText("Level: " + (modPlayer.GetLevel() + 1) + "\n   " + modPlayer.GetUnspentPoints() + " unspent points\n" + numPlayers + " Players, Average Level: " + ((int)averageLevel));
             }
         }
 
