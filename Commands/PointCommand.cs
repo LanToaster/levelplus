@@ -1,4 +1,7 @@
-﻿using Terraria.ModLoader;
+﻿using System.IO;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace levelplus.Commands {
     class PointCommand : ModCommand {
@@ -14,6 +17,22 @@ namespace levelplus.Commands {
 
             player.AddPoints(int.Parse(args[0]));
         }
+    }
+    
+    class XPCommand : ModCommand {
+        public override string Command => "AddXp";
+
+        public override string Description => "Gives Experience";
+        public override CommandType Type => CommandType.Chat;
+
+        public override string Usage => "/AddXp <amount>";
+
+        public override void Action(CommandCaller caller, string input, string[] args) {
+            levelplusModPlayer player = caller.Player.GetModPlayer<levelplusModPlayer>();
+            player.AddXp(ulong.Parse(args[0]));
+
+        }
+
     }
 }
 

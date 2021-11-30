@@ -55,7 +55,18 @@ namespace levelplus.UI {
 
             levelplusModPlayer modPlayer = Main.player[Main.myPlayer].GetModPlayer<levelplusModPlayer>();
             if (Main.mouseX >= this.Left.Pixels && Main.mouseX <= this.Left.Pixels + this.Width.Pixels && Main.mouseY >= this.Top.Pixels && Main.mouseY <= this.Top.Pixels + this.Height.Pixels) {
-                Main.instance.MouseText(modPlayer.GetUnspentPoints() + " unspent points");
+                int numPlayers = 0;
+                float averageLevel = 0;
+
+                foreach (Player i in Main.player)
+                    if (i.active) {
+                        numPlayers++;
+                        averageLevel += i.GetModPlayer<levelplusModPlayer>().GetLevel();
+                    }
+            
+                averageLevel /= numPlayers;
+                
+                Main.instance.MouseText("Level: " + (modPlayer.GetLevel() + 1) + "\n   " + modPlayer.GetUnspentPoints() + " unspent points\n" + numPlayers + " Players, Average Level: " + averageLevel);
             }
         }
 

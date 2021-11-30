@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using Terraria.ModLoader.IO;
 using Terraria.ModLoader;
@@ -34,7 +35,7 @@ namespace levelplus {
 
         private ulong currentXP;
         private ulong neededXP;
-        private ushort level;
+        public ushort level;
         private ushort pointsUnspent;
         private ushort talentUnspent;
 
@@ -312,7 +313,7 @@ namespace levelplus {
                 luck = 0;
                 mysticism = 0;
             }
-
+           
             if(currentXP > neededXP) {
                 LevelUp();
             }
@@ -436,7 +437,7 @@ namespace levelplus {
             pointsUnspent = (ushort)(pointsUnspent + points);
         }
 
-        private void LevelUp() {
+        public void LevelUp() {
 
             Player.statLife = Player.statLifeMax2;
             Player.statMana = Player.statManaMax2;
@@ -446,8 +447,8 @@ namespace levelplus {
             pointsUnspent += LEVEL_POINTS;
 
             neededXP = (ulong)(INCREASE * Math.Pow(level, RATE)) + BASE_XP;
-
-
+            
+            
             //run levelup again if XP is still higher, otherwise, play the level up noise
             if (currentXP >= neededXP) 
                 LevelUp();
@@ -471,5 +472,13 @@ namespace levelplus {
             luck = 0;
             excavation = 0;
         }
+        
+		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
+			ModPacket packet = Mod.GetPacket();
+			packet.Write((byte)PacketType.Level);
+			packet.Write((byte)Player.whoAmI);
+			packet.Write(level);
+			packet.Send(toWho, fromWho);
+		}
     }
 }
