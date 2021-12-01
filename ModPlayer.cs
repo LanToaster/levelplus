@@ -34,7 +34,7 @@ namespace levelplus {
 
         private ulong currentXP;
         private ulong neededXP;
-        public  ushort level;
+        private ushort level;
         private ushort pointsUnspent;
         private ushort talentUnspent;
 
@@ -471,13 +471,5 @@ namespace levelplus {
             luck = 0;
             excavation = 0;
         }
-        
-		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
-			ModPacket packet = Mod.GetPacket();
-			packet.Write((byte)PacketType.Level);
-			packet.Write((byte)Player.whoAmI);
-			packet.Write(level);
-			packet.Send(toWho, fromWho);
-		}
     }
 }
